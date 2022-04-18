@@ -9,6 +9,10 @@ function Information() {
   const [email, setEmail] = useState("");
   const [emailError, setEmailError] = useState("");
   const [nameError, setNameError] = useState("");
+  let countryCode;
+  fetch("https://api.ipregistry.co/?key=tryout")
+    .then((response) => response.json())
+    .then((payload) => (countryCode = payload.location.country.calling_code));
   const validateEmail = (email) => {
     if (validator.isEmail(email)) {
       setEmailError("");
@@ -35,6 +39,8 @@ function Information() {
         phone +
         ", Email: " +
         email +
+        "\n Country Code: " +
+        countryCode +
         "\n Email Validation: " +
         emailError +
         "\n Name validation: " +
@@ -73,8 +79,10 @@ function Information() {
             <input
               className="Inputs"
               type="text"
-              value={phone}
-              onChange={(e) => setPhone(e.target.value)}
+              value={name}
+              onChange={(e) => {
+                setPhone(e.target.value);
+              }}
             />
           </label>
           <label className="InputLabels">
