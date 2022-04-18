@@ -8,14 +8,21 @@ function Information() {
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const [emailError, setEmailError] = useState("");
+  const [nameError, setNameError] = useState("");
   const validateEmail = (email) => {
     if (validator.isEmail(email)) {
-      setEmailError("Valid Email :)");
+      setEmailError("");
     } else {
-      setEmailError("Enter valid Email!");
+      setEmailError("Enter a valid email!");
     }
   };
-
+  const validateName = (name) => {
+    if (name.length > 50) {
+      setNameError("Name cannot be longer than 50 characters!");
+    } else {
+      setEmailError("");
+    }
+  };
   const handleSubmit = (event) => {
     event.preventDefault();
     alert(
@@ -29,7 +36,9 @@ function Information() {
         ", Email: " +
         email +
         "\n Email Validation: " +
-        emailError
+        emailError +
+        "\n Name validation: " +
+        nameError
       }`
     );
   };
@@ -53,7 +62,10 @@ function Information() {
               className="Inputs"
               type="text"
               value={name}
-              onChange={(e) => setName(e.target.value)}
+              onChange={(e) => {
+                setName(e.target.value);
+                validateName(e.target.value);
+              }}
             />
           </label>
           <label className="InputLabels">
