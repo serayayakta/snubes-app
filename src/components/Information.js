@@ -8,14 +8,25 @@ function Information() {
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const [emailError, setEmailError] = useState("");
+  const [nameError, setNameError] = useState("");
+  let countryCode;
+  fetch("https://api.ipregistry.co/?key=tryout")
+    .then((response) => response.json())
+    .then((payload) => (countryCode = payload.location.country.calling_code));
   const validateEmail = (email) => {
     if (validator.isEmail(email)) {
-      setEmailError("Valid Email :)");
+      setEmailError("");
     } else {
-      setEmailError("Enter valid Email!");
+      setEmailError("Enter a valid email!");
     }
   };
-
+  const validateName = (name) => {
+    if (name.length > 50) {
+      setNameError("Name cannot be longer than 50 characters!");
+    } else {
+      setEmailError("");
+    }
+  };
   const handleSubmit = (event) => {
     event.preventDefault();
     alert(
@@ -28,8 +39,12 @@ function Information() {
         phone +
         ", Email: " +
         email +
+        "\n Country Code: " +
+        countryCode +
         "\n Email Validation: " +
-        emailError
+        emailError +
+        "\n Name validation: " +
+        nameError
       }`
     );
   };
@@ -53,7 +68,10 @@ function Information() {
               className="Inputs"
               type="text"
               value={name}
-              onChange={(e) => setName(e.target.value)}
+              onChange={(e) => {
+                setName(e.target.value);
+                validateName(e.target.value);
+              }}
             />
           </label>
           <label className="InputLabels">
@@ -61,8 +79,10 @@ function Information() {
             <input
               className="Inputs"
               type="text"
-              value={phone}
-              onChange={(e) => setPhone(e.target.value)}
+              value={name}
+              onChange={(e) => {
+                setPhone(e.target.value);
+              }}
             />
           </label>
           <label className="InputLabels">
