@@ -1,0 +1,26 @@
+.InformationBox {
+    width: 614px;
+    height: 461px;
+    background-color: white;
+    border-radius: 10px;
+}
+.Form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.InputLabels {
+    font-size: 18px;
+    line-height: 28px;
+    color: #445566;
+}
+.Inputs {
+    padding-right: 7.125rem;
+}
+@media screen and (max-width: 768px) {
+    
+}
+
+@media screen and (max-width: 320px) {
+    
+}
